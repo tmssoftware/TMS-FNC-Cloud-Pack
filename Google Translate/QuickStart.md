@@ -20,7 +20,9 @@ Please follow the steps below to get started with Google Translate, after follow
   
   ```delphi
   TMSFNCCloudGoogleTranslate1.OnTranslateText := DoTranslateText;  
+  ```
   
+  ```delphi    
   procedure TForm1.DoTranslateText(Sender: TObject;
     const ATranslations: TTMSFNCCloudGoogleTranslateTranslations;
     const ARequestResult: TTMSFNCCloudBaseRequestResult);
