@@ -3,8 +3,9 @@ Please follow the steps below to get started with Google Translate, after follow
 <ol>
   <li>Enable Google Translation API (https://cloud.google.com/service-usage/docs/enable-disable)
   <li>Drop an instance of TTMSFNCCloudGoogleTranslate on the form</li>
-  <li>Assign an API key to the Authentication.Key property</li>  
+  <li>Assign an API key to the Authentication.Key property
   ```delphi
-  
+  TMSFNCCloudGoogleTranslate1.Authentication.Key := 'XXXXXXXXXXXXXXXXXXXXXXX';    
   ```
+  </li>  
 </ol>
