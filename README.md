@@ -34,7 +34,7 @@ To install these components, please follow the steps below.
 </ol>
 
 ### Samples ###
-Each subfolder of this repository contains a QuickStart.md page that contains a code snippet to get up and running.
+Each subfolder of this repository contains a README.md page that contains a code snippet to get up and running.
 <br/>
 <br/>
 <br/>
