@@ -3,7 +3,8 @@
 FREE open-source components for seamless access to various REST services.
 
 ## Installation notes ##
-Each subfolder of this repository contains a set of files based on the <a href="http://www.tmssoftware.com/site/tmsfnccloudpack.asp" target="_blank">TMS FNC Cloud Pack</a> and <a href="http://www.tmssoftware.com/site/tmsfnccore.asp" target="_blank">TMS FNC Core</a>
+Each subfolder of this repository contains a set of files based on the <a href="http://www.tmssoftware.com/site/tmsfnccloudpack.asp" target="_blank">TMS FNC Cloud Pack</a> and <a href="http://www.tmssoftware.com/site/tmsfnccore.asp" target="_blank">TMS FNC Core</a>.
+<br/>
 To install these components, please follow the steps below
 ### FMX ###
 <ol>
