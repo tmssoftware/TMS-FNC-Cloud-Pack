@@ -1,40 +1,74 @@
 # Cloud Google Text To Speech #
 Please follow the steps below to get started with Google Text To Speech, after following the <a href="https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/blob/master/README.md">main</a> steps to install the components in the IDE.
 <ol>
-  <li>Enable Google Text To Speech API (https://cloud.google.com/service-usage/docs/enable-disable)
-  <li>Drop an instance of TTMSFNCCloudGoogleTranslate on the form</li>  
+  <li>Enable Google Cloud Text-To-Speech API (https://cloud.google.com/service-usage/docs/enable-disable)
+  <li>Create a new API key (https://console.developers.google.com)
+  <li>Drop an instance of TTMSFNCCloudGoogleTextToSpeech on the form</li>  
   <li>Assign an API key to the Authentication.Key property
 
   ```delphi
-  TMSFNCCloudGoogleTextToSpeech1.Authentication.Key := 'XXXXXXXXXXXXXXXXXXXXXXX';    
+  TMSFNCCloudGoogleTranslate1.Authentication.Key := 'XXXXXXXXXXXXXXXXXXXXXXX';    
   ```
   
   </li>  
-  <li>Call the asynchronous Translate method</li>
+  <li>Call the asynchronous TextToSpeech method</li>
   
   ```delphi
-  TMSFNCCloudGoogleTranslate1.TranslateText('Hello World !', 'de');
+  TMSFNCCloudGoogleTranslate1.TextToSpeech('Hello World !');
   ```
   
-  <li>Assign the event OnTranslateText and catch the result of the TranslateText call
+  <li>Assign the event OnTextToSpeech and catch the result of the TextToSpeech call
   
   ```delphi
-  TMSFNCCloudGoogleTranslate1.OnTranslateText := DoTranslateText;  
+  TMSFNCCloudGoogleTranslate1.OnTextToSpeech := DoTextToSpeech;  
   ```
-  
+  WEB:
   ```delphi    
-  procedure TForm1.DoTranslateText(Sender: TObject;
-    const ATranslations: TTMSFNCCloudGoogleTranslateTranslations;
+  procedure TForm1.DoTextToSpeech(Sender: TObject; const ABase64Audio: string;
     const ARequestResult: TTMSFNCCloudBaseRequestResult);
   var
-    I: Integer;
+    base64: string;
   begin
     if ARequestResult.Success then
     begin
-      for I := 0 to ATranslations.Count - 1 do
-        ShowMessage(ATranslations[I].TranslatedText);
+      base64 := ABase64Audio;
+      try
+        asm
+          var snd = new Audio("data:audio/mpeg;base64," + base64);
+          snd.play();
+        end;
+      finally
+      end;
     end;
   end;
+  ```
+  
+  FMX:
+  ```delphi
+  procedure TForm1.DoTextToSpeech(Sender: TObject; const ABase64Audio: string;
+    const ARequestResult: TTMSFNCCloudBaseRequestResult);
+  var
+    Encoder: TBase64Encoding;
+    b: TBytesStream;
+    bf: TBytes;
+  begin
+    if ARequestResult.Success then
+    begin
+      MediaPlayer1.Clear;
+      Encoder := TBase64Encoding.Create;
+
+      bf := Encoder.DecodeStringToBytes(ABase64Audio);
+      b := TBytesStream.Create(bf);
+      try
+        b.SaveToFile('audio.mp3');
+        MediaPlayer1.FileName := 'audio.mp3';
+        MediaPlayer1.Play;
+      finally
+        Encoder.Free;
+        b.Free;
+      end;
+    end;
+  end;  
   ```
   
   </li>    
