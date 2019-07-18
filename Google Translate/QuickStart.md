@@ -1,10 +1,9 @@
+# Cloud Google Translate #
+Please follow the steps below to get started with Google Translate, after following the <a href="https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/blob/master/README.md" target="_blank">main</a> steps to install the components in the IDE.
+<ol>
+  <li>Drop an instance of TTMSFNCCloudGoogleTranslate on the form</li>
+</ol>
+
+
 ```delphi
-  if not TDirectory.Exists(targetpath + 'Google Vision\') then
-    TDirectory.CreateDirectory(targetpath + 'Google Vision\');
-
-  if not TDirectory.Exists(targetpath + 'Google Text To Speech\') then
-    TDirectory.CreateDirectory(targetpath + 'Google Text To Speech\');
-
-  if not TDirectory.Exists(targetpath + 'Google Translate\') then
-    TDirectory.CreateDirectory(targetpath + 'Google Translate\');
 ```
