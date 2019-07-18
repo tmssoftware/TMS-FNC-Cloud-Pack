@@ -2,7 +2,7 @@
 
 FREE open-source components for seamless access to various REST services.
 
-[a link](https://github.com/user/repo/blob/branch/other_file.md)
+[Google Translate](https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/tree/master/Google%20Translate)
 
 ## Installation notes ##
 Each subfolder of this repository contains a set of files based on the <a href="http://www.tmssoftware.com/site/tmsfnccloudpack.asp" target="_blank">TMS FNC Cloud Pack</a> and <a href="http://www.tmssoftware.com/site/tmsfnccore.asp" target="_blank">TMS FNC Core</a>.
