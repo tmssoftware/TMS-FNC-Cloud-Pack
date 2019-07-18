@@ -35,4 +35,5 @@ To install these components, please follow the steps below
 ### Samples ###
 Each subfolder of this repository contains a QuickStart.html page that contains a code snippet to get up and running.
 
-*:The version of RAD Studio you are using (ex. XE12 = RAD Studio 10.3 Rio)
+<i>*:The name of the units you want to add.</i>
+  <i>**:The version of RAD Studio you are using (ex. XE12 = RAD Studio 10.3 Rio).</i>
