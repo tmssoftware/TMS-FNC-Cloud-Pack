@@ -10,7 +10,7 @@ To install these components, please follow the steps below.
 <ol>
   <li>Create a new package</li>
   <li>Add the FMX*.pas files to the package</li>
-  <li>Add dependencies to FMXTMSFNCCloudPackPkg*.dcp and FMXTMSFNCCorePkg*.dcp</li>
+  <li>Add dependencies to FMXTMSFNCCloudPackPkg**.dcp and FMXTMSFNCCorePkg**.dcp</li>
   <li>Build and install the package</li>
   <li>Update the library path with the local folder source checkout of the subfolder of this repository</li>
 </ol>
@@ -19,7 +19,7 @@ To install these components, please follow the steps below.
 <ol>
   <li>Create a new package</li>
   <li>Add the VCL*.pas files to the package</li>
-  <li>Add dependencies to VCLTMSFNCCloudPackPkg*.dcp and VCLTMSFNCCorePkg*.dcp</li>
+  <li>Add dependencies to VCLTMSFNCCloudPackPkg**.dcp and VCLTMSFNCCorePkg**.dcp</li>
   <li>Build and install the package</li>
   <li>Update the library path with the local folder source checkout of the subfolder of this repository</li>
   <li>For WEB: update the TMS WEB library path under Options</li>
@@ -29,7 +29,7 @@ To install these components, please follow the steps below.
 <ol>
   <li>Create a new package</li>
   <li>Add the LCL*.pas files to the package</li>
-  <li>Add dependencies to LCLTMSFNCCloudPackPkg*.dcp and LCLTMSFNCCorePkg*.dcp</li>
+  <li>Add dependencies to LCLTMSFNCCloudPackPkg and LCLTMSFNCCorePkg</li>
   <li>Build and install the package</li> 
 </ol>
 
