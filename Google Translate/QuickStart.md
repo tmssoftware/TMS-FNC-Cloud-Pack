@@ -6,6 +6,6 @@ Please follow the steps below to get started with Google Translate, after follow
   <li>Assign an API key to the Authentication.Key property
   </li>  
 </ol>
-  ```delphi
-  TMSFNCCloudGoogleTranslate1.Authentication.Key := 'XXXXXXXXXXXXXXXXXXXXXXX';    
-  ```
+```delphi
+TMSFNCCloudGoogleTranslate1.Authentication.Key := 'XXXXXXXXXXXXXXXXXXXXXXX';    
+```
