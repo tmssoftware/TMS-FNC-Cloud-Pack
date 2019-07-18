@@ -7,20 +7,20 @@ Please follow the steps below to get started with Google Text To Speech, after f
   <li>Assign an API key to the Authentication.Key property
 
   ```delphi
-  TMSFNCCloudGoogleTranslate1.Authentication.Key := 'XXXXXXXXXXXXXXXXXXXXXXX';    
+  TMSFNCCloudGoogleTextToSpeech1.Authentication.Key := 'XXXXXXXXXXXXXXXXXXXXXXX';    
   ```
   
   </li>  
   <li>Call the asynchronous TextToSpeech method</li>
   
   ```delphi
-  TMSFNCCloudGoogleTranslate1.TextToSpeech('Hello World !');
+  TMSFNCCloudGoogleTextToSpeech1.TextToSpeech('Hello World !');
   ```
   
   <li>Assign the event OnTextToSpeech and catch the result of the TextToSpeech call
   
   ```delphi
-  TMSFNCCloudGoogleTranslate1.OnTextToSpeech := DoTextToSpeech;  
+  TMSFNCCloudGoogleTextToSpeech1.OnTextToSpeech := DoTextToSpeech;  
   ```
   WEB:
   ```delphi    
