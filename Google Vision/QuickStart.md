@@ -1,4 +1,4 @@
-# Cloud Google Translate #
+# Cloud Google Vision #
 Please follow the steps below to get started with Google Vision, after following the <a href="https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/blob/master/README.md">main</a> steps to install the components in the IDE.
 <ol>
   <li>Enable Google Cloud Vision API (https://cloud.google.com/service-usage/docs/enable-disable)
