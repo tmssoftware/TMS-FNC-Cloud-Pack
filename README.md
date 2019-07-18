@@ -3,7 +3,9 @@
 FREE open-source components for seamless access to various REST services.
 
 [Google Translate](https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/tree/master/Google%20Translate)
+<br>
 [Google Text To Speech](https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/tree/master/Google%20Text%20To%20Speech)
+<br>
 [Google Vision](https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/tree/master/Google%20Vision)
 
 ## Installation notes ##
