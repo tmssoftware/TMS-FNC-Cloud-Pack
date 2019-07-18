@@ -14,7 +14,7 @@ Please follow the steps below to get started with Google Vision, after following
   <li>Call the asynchronous ScanImage method</li>
   
   ```delphi
-  TMSFNCCloudGoogleVision1.ScanImage('Hello World !', 'de');
+  TMSFNCCloudGoogleVision1.ScanImage();
   ```
   
   <li>Assign the event OnScanImage and catch the result of the ScanImage call
