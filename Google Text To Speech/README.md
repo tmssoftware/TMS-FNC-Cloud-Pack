@@ -23,6 +23,16 @@ Please follow the steps below to get started with Google Text To Speech, after f
   ```delphi
   TMSFNCCloudGoogleTextToSpeech1.OnTextToSpeech := DoTextToSpeech;  
   ```
+  FNC Core:
+  ```delphi
+  procedure TForm1.DoTextToSpeech(Sender: TObject; const ABase64Audio: string;
+    const ARequestResult: TTMSFNCCloudBaseRequestResult);
+  begin
+    if ARequestResult.Success then
+      TTMSFNCUtils.PlayAudio(ABase64Audio);
+  end;
+  ```
+  
   WEB:
   ```delphi    
   procedure TForm1.DoTextToSpeech(Sender: TObject; const ABase64Audio: string;
