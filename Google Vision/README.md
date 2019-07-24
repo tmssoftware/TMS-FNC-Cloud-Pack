@@ -12,32 +12,6 @@ Please follow the steps below to get started with Google Vision, after following
   ```
   
   </li>  
-  <li>Call the asynchronous ScanImage method</li>
-  
-  
-  WEB
-  ```delphi
-  procedure TForm1.ScanImage;
-  var
-    TMSFNCCloudGoogleVision1.ScanImageBase64(StringReplace(TMSFNCImage1.Canvas.GetBase64Image, 'data:image/png;base64,', '', [rfReplaceAll]));
-  end;
-  ```
-  FMX/VCL/LCL
-  ```delphi
-  procedure TForm1.ScanImage;
-  var
-    m: TBytesStream;
-  begin
-    m := TBytesStream.Create;
-    try
-      TMSFNCImage1.Bitmap.SaveToStream(m);
-      TMSFNCCloudGoogleVision1.ScanImageBase64(TTMSFNCUtils.Encode64(m.Bytes));
-    finally
-      m.Free;
-    end;
-  end;
-  ```
-    
   <li>Assign the event OnScanImage and repaint the TTMSFNCImage instance
   
   ```delphi
@@ -108,6 +82,33 @@ end;
   ```
   
   </li>
+  
+  <li>Call the asynchronous ScanImage method
+  
+  
+  WEB
+  ```delphi
+  procedure TForm1.ScanImage;
+  var
+    TMSFNCCloudGoogleVision1.ScanImageBase64(StringReplace(TMSFNCImage1.Canvas.GetBase64Image, 'data:image/png;base64,', '', [rfReplaceAll]));
+  end;
+  ```
+  FMX/VCL/LCL
+  ```delphi
+  procedure TForm1.ScanImage;
+  var
+    m: TBytesStream;
+  begin
+    m := TBytesStream.Create;
+    try
+      TMSFNCImage1.Bitmap.SaveToStream(m);
+      TMSFNCCloudGoogleVision1.ScanImageBase64(TTMSFNCUtils.Encode64(m.Bytes));
+    finally
+      m.Free;
+    end;
+  end;
+  ```
+  </li>  
 </ol>
 <br/>
 Sample of the image after following the above steps.
