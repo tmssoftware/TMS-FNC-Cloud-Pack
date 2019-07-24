@@ -12,7 +12,7 @@ Please follow the steps below to get started with Google Vision, after following
   ```
   
   </li>  
-  <li>Assign the event OnScanImage and repaint the TTMSFNCImage instance
+  <li>Assign the event OnScanImage and repaint the TTMSFNCImage instance in the callback of the request
   
   ```delphi
   TMSFNCCloudGoogleVision1.OnScanImage := DoScanImage;  
@@ -41,7 +41,7 @@ Please follow the steps below to get started with Google Vision, after following
   ```
   </li>
   
-  <li>Implement the OnAfterDraw event on the TTMSFNCImage instance to paint rectangles to indicate the faces detected by the Google Vision API
+  <li>Implement the OnAfterDraw event on the TTMSFNCImage instance to paint rectangles to indicate the faces detected by the Google Vision API. The Responses collection contains faces, landmarks, objects, and many more. The result can be controlled via the DetectTypes property, which is set to dtFaces by default. The options are: dtObjects, dtText, dtDocumentText, dtImageLabels, dtLandMarks, dtLogos, dtSafeSearch, dtWeb, dtFaces
   
   ```delphi
 procedure TForm1.TMSFNCImage1AfterDraw(Sender: TObject;
