@@ -445,12 +445,12 @@ type
     property OnScanImage: TTMSFNCCloudGoogleVisionResponseEvent read FresponseEvent write FResponseEvent;
     function GetVersion: string; override;
     property DetectTypes: TTMSFNCCloudGoogleVisionDetectTypes read FDetectTypes write FDetectTypes default [dtFaces];
+    property Responses: TTMSFNCCloudGoogleVisionResponses read FResponses write FResponses;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure ScanImage(const AFile: TTMSFNCUtilsFile; const AMaxResults: Integer = 0);
     procedure ScanImageBase64(const ABase64: string; const AMaxResults: Integer = 0);
-    property Responses: TTMSFNCCloudGoogleVisionResponses read FResponses write FResponses;
   end;
 
   {$IFNDEF LCLLIB}
@@ -461,6 +461,7 @@ type
     procedure RegisterRuntimeClasses; override;
   public
     property DetectTypes;
+    property Responses;
   published
     property OnScanImage;
     property OnScanImagesComplete;
