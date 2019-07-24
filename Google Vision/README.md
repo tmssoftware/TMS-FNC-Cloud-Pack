@@ -44,41 +44,41 @@ Please follow the steps below to get started with Google Vision, after following
   <li>Implement the OnAfterDraw event on the TTMSFNCImage instance to paint rectangles to indicate the faces detected by the Google Vision API. The Responses collection contains faces, landmarks, objects, and many more. The result can be controlled via the DetectTypes property, which is set to dtFaces by default. The options are: dtObjects, dtText, dtDocumentText, dtImageLabels, dtLandMarks, dtLogos, dtSafeSearch, dtWeb, dtFaces
   
   ```delphi
-procedure TForm1.TMSFNCImage1AfterDraw(Sender: TObject;
-  AGraphics: TTMSFNCGraphics; ARect: TRectF);
-var
-  I, J, K:Integer;
-  poi: TPointF;
-  r: TTMSFNCCloudGoogleVisionResponse;
-  f: TTMSFNCCloudGoogleVisionDetectedFace;
-  rp: TRectF;
-begin
-  AGraphics.Stroke.Kind := gskSolid;
-  AGraphics.Stroke.Color := gcOrange;
-
-  for I := 0 to v.Responses.Count - 1 do
+  procedure TForm1.TMSFNCImage1AfterDraw(Sender: TObject;
+    AGraphics: TTMSFNCGraphics; ARect: TRectF);
+  var
+    I, J, K:Integer;
+    poi: TPointF;
+    r: TTMSFNCCloudGoogleVisionResponse;
+    f: TTMSFNCCloudGoogleVisionDetectedFace;
+    rp: TRectF;
   begin
-    r := v.Responses[I];
-    for J := 0 to r.DetectedFaces.Count - 1 do
-    begin
-      f := r.DetectedFaces[J];
-      AGraphics.DrawLine(f.FacePoints[0], f.FacePoints[1]);
-      AGraphics.DrawLine(f.FacePoints[1], f.FacePoints[2]);
-      AGraphics.DrawLine(f.FacePoints[2], f.FacePoints[3]);
-      AGraphics.DrawLine(f.FacePoints[3], f.FacePoints[0]);
-      AGraphics.DrawLine(f.Points[0], f.Points[1]);
-      AGraphics.DrawLine(f.Points[1], f.Points[2]);
-      AGraphics.DrawLine(f.Points[2], f.Points[3]);
-      AGraphics.DrawLine(f.Points[3], f.Points[0]);
+    AGraphics.Stroke.Kind := gskSolid;
+    AGraphics.Stroke.Color := gcOrange;
 
-      for K := 0 to f.LandMarks.Count - 1 do
+    for I := 0 to v.Responses.Count - 1 do
+    begin
+      r := v.Responses[I];
+      for J := 0 to r.DetectedFaces.Count - 1 do
       begin
-        poi := f.Landmarks[K].Point;
-        AGraphics.DrawRectangle(RectF(poi.X - 2, poi.Y - 2, poi.x + 2, poi.Y + 2));
+        f := r.DetectedFaces[J];
+        AGraphics.DrawLine(f.FacePoints[0], f.FacePoints[1]);
+        AGraphics.DrawLine(f.FacePoints[1], f.FacePoints[2]);
+        AGraphics.DrawLine(f.FacePoints[2], f.FacePoints[3]);
+        AGraphics.DrawLine(f.FacePoints[3], f.FacePoints[0]);
+        AGraphics.DrawLine(f.Points[0], f.Points[1]);
+        AGraphics.DrawLine(f.Points[1], f.Points[2]);
+        AGraphics.DrawLine(f.Points[2], f.Points[3]);
+        AGraphics.DrawLine(f.Points[3], f.Points[0]);
+ 
+        for K := 0 to f.LandMarks.Count - 1 do
+        begin
+          poi := f.Landmarks[K].Point;
+          AGraphics.DrawRectangle(RectF(poi.X - 2, poi.Y - 2, poi.x + 2, poi.Y + 2));
+        end;
       end;
     end;
   end;
-end;
   ```
   
   </li>
