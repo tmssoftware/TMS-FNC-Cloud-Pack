@@ -331,7 +331,7 @@ type
     constructor Create(ACollection: TCollection);  override;
     procedure Assign(Source: TPersistent); override;
     procedure FromJSON(jo: TJSONValue);
-    procedure CalculateRectF(bit: TTMSFNCUtilsFile);
+    procedure CalculateRectF(AFile: TTMSFNCUtilsFile; ABase64: string);
     property Confidence: double read FConfidence write FConfidence;
     property Name: string read Fname write Fname;
     property Points: TTMSFNCCloudGoogleVisionPointArray read FPoints write FPoints;
@@ -397,6 +397,7 @@ type
     FWebDetection: TTMSFNCCloudGoogleVisionWebDetection;
     FDetectedText: TTMSFNCCloudGoogleVisionDetectedTexts;
     FBitmapFile: TTMSFNCUtilsFile;
+    FBitmapBase64: string;
   public
     constructor Create(ACollection: TCollection); Override;
     destructor Destroy; override;
@@ -409,6 +410,7 @@ type
     property WebDetection: TTMSFNCCloudGoogleVisionWebDetection read FWebDetection write FWebDetection;
     property SafeSearch: TTMSFNCCloudGoogleVisionSafeSearch read FSafeSearch write FSafeSearch;
     property BitmapFile: TTMSFNCUtilsFile read FBitmapFile write FBitmapFile;
+    property BitmapBase64: string read FBitmapBase64 write FBitmapBase64;
   end;
 
   TTMSFNCCloudGoogleVisionResponses = class (TOwnedCollection)
@@ -433,6 +435,8 @@ type
     FResponseEvent: TTMSFNCCloudGoogleVisionResponseEvent;
     FResponsesCompleteEvent: TTMSFNCCloudGoogleVisionResponsesCompleteEvent;
     function AddFeatures(const AType: string; const AMax: Integer): string;
+    procedure InternalScanImageBase64(const AFile: TTMSFNCUtilsFile;
+      const ABase64: string; const AMaxResults: Integer);
   protected
     procedure DoRequestScanPicture(const ARequestResult: TTMSFNCCloudBaseRequestResult);
     procedure DoScanImage(const AResponse: TTMSFNCCloudGoogleVisionResponse; const ARequestResult: TTMSFNCCloudBaseRequestResult);
@@ -440,13 +444,13 @@ type
     property OnScanImagesComplete: TTMSFNCCloudGoogleVisionResponsesCompleteEvent read FResponsesCompleteEvent write FResponsesCompleteEvent;
     property OnScanImage: TTMSFNCCloudGoogleVisionResponseEvent read FresponseEvent write FResponseEvent;
     function GetVersion: string; override;
-    property DetectTypes: TTMSFNCCloudGoogleVisionDetectTypes read FDetectTypes write FDetectTypes;
-    property Respones: TTMSFNCCloudGoogleVisionResponses read FResponses write FResponses;
+    property DetectTypes: TTMSFNCCloudGoogleVisionDetectTypes read FDetectTypes write FDetectTypes default [dtFaces];
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure ScanImage(const AFile: TTMSFNCUtilsFile; const AMaxResults: Integer = 0); overload;
-    property Responses: TTMSFNCCloudGoogleVisionResponses read FResponses;
+    procedure ScanImage(const AFile: TTMSFNCUtilsFile; const AMaxResults: Integer = 0);
+    procedure ScanImageBase64(const ABase64: string; const AMaxResults: Integer = 0);
+    property Responses: TTMSFNCCloudGoogleVisionResponses read FResponses write FResponses;
   end;
 
   {$IFNDEF LCLLIB}
@@ -469,7 +473,9 @@ implementation
 
 procedure Register;
 begin
+  {$IFNDEF WEBLIB}
   RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleVision]);
+  {$ENDIF}
 end;
 
 function TTMSFNCCustomCloudGoogleVision.AddFeatures(const AType: string; const AMax: Integer): string;
@@ -492,7 +498,7 @@ begin
   Service.BaseURL := 'https://vision.googleapis.com';
   Service.Name := 'Google Vision';
   FResponses := TTMSFNCCloudGoogleVisionResponses.Create(Self);
-  FDetectTypes := [];
+  FDetectTypes := [dtFaces];
 end;
 
 destructor TTMSFNCCustomCloudGoogleVision.Destroy;
@@ -515,9 +521,7 @@ var
   wmi: TTMSFNCCloudGoogleVisionWebImagePageMatch;
   dt: TTMSFNCCloudGoogleVisionDetectedText;
   ff: TTMSFNCCloudGoogleVisionDetectedFace;
-  bit: TTMSFNCUtilsFile;
 begin
-  bit := ARequestResult.DataUpload;
   rs := nil;
   if ARequestResult.ResultString <> '' then
   begin
@@ -531,7 +535,8 @@ begin
           for I := 0 to TTMSFNCUtils.GetJSONArraySize(ja as TJSONArray) - 1 do
           begin
             rs := FResponses.add;
-            rs.FBitmapFile := bit;
+            rs.FBitmapFile := ARequestResult.DataUpload;
+            rs.FBitmapBase64 := ARequestResult.DataString;
             jo := TTMSFNCUtils.GetJSONArrayItem(ja as TJSONArray, I);
             if Assigned(jo) then
             begin
@@ -545,7 +550,7 @@ begin
                   begin
                     obj := rs.FDetectedObjects.Add;
                     obj.FromJSON(jo2);
-                    obj.CalculateRectF(bit);
+                    obj.CalculateRectF(ARequestResult.DataUpload, ARequestResult.DataString);
                   end;
                 end;
               end;
@@ -714,6 +719,28 @@ begin
 end;
 
 procedure TTMSFNCCustomCloudGoogleVision.ScanImage(const AFile: TTMSFNCUtilsFile; const AMaxResults: Integer);
+begin
+  InternalScanImageBase64(AFile, TTMSFNCUtils.FileToBase64(AFile), AMaxResults);
+end;
+
+procedure TTMSFNCCustomCloudGoogleVision.ScanImageBase64(const ABase64: string;
+  const AMaxResults: Integer);
+{$IFDEF WEBLIB}
+var
+  f: TTMSFNCUtilsFile;
+{$ENDIF}
+begin
+  {$IFDEF WEBLIB}
+  f.Data := nil;
+  f.Name := '';
+  InternalScanImageBase64(f, ABase64, AMaxResults);
+  {$ELSE}
+  InternalScanImageBase64('', ABase64, AMaxResults);
+  {$ENDIF}
+end;
+
+procedure TTMSFNCCustomCloudGoogleVision.InternalScanImageBase64(const AFile: TTMSFNCUtilsFile; const ABase64: string;
+  const AMaxResults: Integer);
 var
   s, sp, et: string;
 begin
@@ -724,7 +751,7 @@ begin
   s := s + sp + '"requests": [' + et;
   s := s + sp + '{' + et;
   s := s + sp + sp + '"image": {' + et;
-  s := s + sp + sp + sp + '"content":"' + TTMSFNCUtils.FileToBase64(AFile) + '"' + et;
+  s := s + sp + sp + sp + '"content":"' + ABase64 + '"' + et;
   s := s + sp + sp + '},' + et;
   s := s + sp + sp + '"features": [' + et;
   if dtObjects in FDetectTypes then
@@ -761,6 +788,7 @@ begin
   Request.Method := rmPOST;
   Request.AddHeader('Content-Type', 'application/json');
   Request.PostData := s;
+  Request.DataString := ABase64;
   Request.DataUpload := AFile;
   ExecuteRequest({$IFDEF LCLWEBLIB}@{$ENDIF}DoRequestScanPicture);
 end;
@@ -785,7 +813,7 @@ begin
     inherited;
 end;
 
-procedure TTMSFNCCloudGoogleVisionDetectedObject.CalculateRectF(bit: TTMSFNCUtilsFile);
+procedure TTMSFNCCloudGoogleVisionDetectedObject.CalculateRectF(AFile: TTMSFNCUtilsFile; ABase64: string);
 var
   I: Integer;
   b: TTMSFNCBitmap;
@@ -794,9 +822,15 @@ begin
   b := TTMSFNCBitmap.Create;
   try
     {$IFDEF WEBLIB}
-    b64 := 'data:image/png;base64,' + TTMSFNCUtils.FileToBase64(bit);
+    if ABase64 <> '' then
+      b64 := 'data:image/png;base64,' + ABase64
+    else
+      b64 := 'data:image/png;base64,' + TTMSFNCUtils.FileToBase64(AFile);
     {$ELSE}
-    b64 := TTMSFNCUtils.FileToBase64(bit);
+    if ABase64 <> '' then
+      b64 := ABase64
+    else
+      b64 := TTMSFNCUtils.FileToBase64(AFile);
     {$ENDIF}
 
     b.LoadFromFile(b64);
