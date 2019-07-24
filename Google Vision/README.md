@@ -1,6 +1,6 @@
 <a href="http://www.tmssoftware.com/site/tmsfnccloudpack.asp"><img src="https://tmssoftware.com/site/img/github/tmsfnccloudpack.png" title="TMS FNC Cloud Pack" alt="TMS FNC Cloud Pack"></a>
 # Cloud Google Vision <img src="http://tmssoftware.com/site/img/github/tmsfnccloudgooglevision.png"/> #
-Please follow the steps below to get started with Google Vision, after following the <a href="https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/blob/master/README.md">main</a> steps to install the components in the IDE. The sample below is based on a TTMSFNCImage which is available in the <a href="http://www.tmssoftware.com/site/tmsfncuipack.asp">TMS FNC UI Pack</a>.
+Please follow the steps below to get started with Google Vision, after following the <a href="https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/blob/master/README.md">main</a> steps to install the components in the IDE. The sample below is based on a TTMSFNCImage which is available in the <a href="https://www.tmssoftware.com/site/tmsfncuipack.asp">TMS FNC UI Pack</a>.
 <ol>
   <li>Enable Google Cloud Vision API (https://cloud.google.com/service-usage/docs/enable-disable)
   <li>Create a new API key (https://console.developers.google.com)
@@ -17,7 +17,10 @@ Please follow the steps below to get started with Google Vision, after following
   
   WEB
   ```delphi
+  procedure TForm1.ScanImage;
+  var
     TMSFNCCloudGoogleVision1.ScanImageBase64(StringReplace(TMSFNCImage1.Canvas.GetBase64Image, 'data:image/png;base64,', '', [rfReplaceAll]));
+  end;
   ```
   FMX/VCL/LCL
   ```delphi
@@ -62,4 +65,50 @@ Please follow the steps below to get started with Google Vision, after following
   TMSFNCImage1.AutoSize := True;
   TMSFNCImage1.Stretch := False;
   ```
+  </li>
+  
+  <li>Implement the OnAfterDraw event on the TTMSFNCImage instance to paint rectangles to indicate the faces detected by the Google Vision API
+  
+  ```delphi
+procedure TForm1.TMSFNCImage1AfterDraw(Sender: TObject;
+  AGraphics: TTMSFNCGraphics; ARect: TRectF);
+var
+  I, J, K:Integer;
+  poi: TPointF;
+  r: TTMSFNCCloudGoogleVisionResponse;
+  f: TTMSFNCCloudGoogleVisionDetectedFace;
+  rp: TRectF;
+begin
+  AGraphics.Stroke.Kind := gskSolid;
+  AGraphics.Stroke.Color := gcOrange;
+
+  for I := 0 to v.Responses.Count - 1 do
+  begin
+    r := v.Responses[I];
+    for J := 0 to r.DetectedFaces.Count - 1 do
+    begin
+      f := r.DetectedFaces[J];
+      AGraphics.DrawLine(f.FacePoints[0], f.FacePoints[1]);
+      AGraphics.DrawLine(f.FacePoints[1], f.FacePoints[2]);
+      AGraphics.DrawLine(f.FacePoints[2], f.FacePoints[3]);
+      AGraphics.DrawLine(f.FacePoints[3], f.FacePoints[0]);
+      AGraphics.DrawLine(f.Points[0], f.Points[1]);
+      AGraphics.DrawLine(f.Points[1], f.Points[2]);
+      AGraphics.DrawLine(f.Points[2], f.Points[3]);
+      AGraphics.DrawLine(f.Points[3], f.Points[0]);
+
+      for K := 0 to f.LandMarks.Count - 1 do
+      begin
+        poi := f.Landmarks[K].Point;
+        AGraphics.DrawRectangle(RectF(poi.X - 2, poi.Y - 2, poi.x + 2, poi.Y + 2));
+      end;
+    end;
+  end;
+end;
+  ```
+  
+  </li>
 </ol>
+
+Sample of the image after following the above steps.
+<img src="https://tmssoftware.com/site/img/github/tmsfnccloudgooglevision_image.png"/>
