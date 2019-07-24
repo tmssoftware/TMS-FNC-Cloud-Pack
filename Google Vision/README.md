@@ -109,6 +109,7 @@ end;
   
   </li>
 </ol>
-
+<br/>
 Sample of the image after following the above steps.
+<br/>
 <img src="https://tmssoftware.com/site/img/github/tmsfnccloudgooglevision_image.png"/>
