@@ -13,7 +13,7 @@ Please follow the steps below to get started with Google Vision, after following
   
   </li>  
   <li>Call the asynchronous ScanImage method</li>
-  
+  <BR>
   WEB
   ```delphi
     TMSFNCCloudGoogleVision1.ScanImageBase64(StringReplace(TMSFNCImage1.Canvas.GetBase64Image, 'data:image/png;base64,', '', [rfReplaceAll]));
