@@ -1,6 +1,6 @@
 <a href="http://www.tmssoftware.com/site/tmsfnccloudpack.asp"><img src="https://tmssoftware.com/site/img/github/tmsfnccloudpack.png" title="TMS FNC Cloud Pack" alt="TMS FNC Cloud Pack"></a>
 # Cloud Google Vision <img src="http://tmssoftware.com/site/img/github/tmsfnccloudgooglevision.png"/> #
-Please follow the steps below to get started with Google Vision, after following the <a href="https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/blob/master/README.md">main</a> steps to install the components in the IDE. The sample below is based on a TTMSFNCImage which is available in the <a href="http://www.tmssoftware.com/site/tmsfncuipack.asp>TMS FNC UI Pack</a>.
+Please follow the steps below to get started with Google Vision, after following the <a href="https://github.com/tmssoftware/TMS-FNC-Cloud-Pack/blob/master/README.md">main</a> steps to install the components in the IDE. The sample below is based on a TTMSFNCImage which is available in the <a href="http://www.tmssoftware.com/site/tmsfncuipack.asp">TMS FNC UI Pack</a>.
 <ol>
   <li>Enable Google Cloud Vision API (https://cloud.google.com/service-usage/docs/enable-disable)
   <li>Create a new API key (https://console.developers.google.com)
