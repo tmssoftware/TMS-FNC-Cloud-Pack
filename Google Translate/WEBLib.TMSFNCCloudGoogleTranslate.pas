@@ -178,7 +178,14 @@ type
     property TranslateModel;
   end;
 
+procedure Register;
+
 implementation
+
+procedure Register;
+begin
+  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleTranslate]);
+end;
 
 constructor TTMSFNCCustomCloudGoogleTranslate.Create(AOwner: TComponent);
 begin

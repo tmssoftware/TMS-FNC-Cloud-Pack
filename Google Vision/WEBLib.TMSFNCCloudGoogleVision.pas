@@ -463,8 +463,14 @@ type
   end;
 
 function GetJSONPoint(const jo: TJSONValue; const I: Integer): TPointF;
+procedure Register;
 
 implementation
+
+procedure Register;
+begin
+  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleVision]);
+end;
 
 function TTMSFNCCustomCloudGoogleVision.AddFeatures(const AType: string; const AMax: Integer): string;
 var

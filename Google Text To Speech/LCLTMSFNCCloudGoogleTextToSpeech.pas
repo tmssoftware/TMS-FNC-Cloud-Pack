@@ -137,7 +137,14 @@ type
     property OnTextToSpeech;
   end;
 
+procedure Register;
+
 implementation
+
+procedure Register;
+begin
+  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleTextToSpeech]);
+end;
 
 constructor TTMSFNCCustomCloudGoogleTextToSpeech.Create(AOwner: TComponent);
 begin
