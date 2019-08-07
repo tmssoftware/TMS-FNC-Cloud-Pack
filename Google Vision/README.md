@@ -51,6 +51,7 @@ Please follow the steps below to get started with Google Vision, after following
     poi: TPointF;
     r: TTMSFNCCloudGoogleVisionResponse;
     f: TTMSFNCCloudGoogleVisionDetectedFace;
+    v: TTMSFNCCloudGoogleVision;
     rp: TRectF;
   begin
     AGraphics.Stroke.Kind := gskSolid;
