@@ -56,9 +56,9 @@ Please follow the steps below to get started with Google Vision, after following
     AGraphics.Stroke.Kind := gskSolid;
     AGraphics.Stroke.Color := gcOrange;
 
-    for I := 0 to v.Responses.Count - 1 do
+    for I := 0 to TMSFNCCloudGoogleVision1.Responses.Count - 1 do
     begin
-      r := v.Responses[I];
+      r := TMSFNCCloudGoogleVision1.Responses[I];
       for J := 0 to r.DetectedFaces.Count - 1 do
       begin
         f := r.DetectedFaces[J];
