@@ -137,7 +137,19 @@ type
     property OnTextToSpeech;
   end;
 
+procedure Register;
+
 implementation
+
+{$IFDEF WEBLIB}
+uses
+  WEBLib.DesignIntf;
+{$ENDIF}
+
+procedure Register;
+begin
+  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleTextToSpeech]);
+end;
 
 constructor TTMSFNCCustomCloudGoogleTextToSpeech.Create(AOwner: TComponent);
 begin

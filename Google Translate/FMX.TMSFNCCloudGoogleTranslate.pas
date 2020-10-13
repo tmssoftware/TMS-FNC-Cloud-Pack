@@ -178,7 +178,19 @@ type
     property TranslateModel;
   end;
 
+procedure Register;
+
 implementation
+
+{$IFDEF WEBLIB}
+uses
+  WEBLib.DesignIntf;
+{$ENDIF}
+
+procedure Register;
+begin
+  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleTranslate]);
+end;
 
 constructor TTMSFNCCustomCloudGoogleTranslate.Create(AOwner: TComponent);
 begin
