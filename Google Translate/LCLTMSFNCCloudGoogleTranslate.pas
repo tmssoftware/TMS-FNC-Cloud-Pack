@@ -28,7 +28,7 @@ unit LCLTMSFNCCloudGoogleTranslate;
 interface
 
 uses
-  Classes, LCLTMSFNCCloudBase, LCLTMSFNCTypes, LCLTMSFNCUtils
+  Classes, LCLTMSFNCCloudOAuth, LCLTMSFNCCloudBase, LCLTMSFNCTypes, LCLTMSFNCUtils
   {$IFDEF WEBLIB}
   ,WEBLib.JSON, JS, Contnrs
   {$ENDIF}
@@ -124,7 +124,7 @@ type
     property Items[Index: Integer]: TTMSFNCCloudGoogleTranslateDetection read GetItems write SetItems; default;
   end;
   
-  TTMSFNCCustomCloudGoogleTranslate = class(TTMSFNCSimpleCloudBase)
+  TTMSFNCCustomCloudGoogleTranslate = class(TTMSFNCSimpleCloudOAuth)
   private
     FSupportedLanguages: TStringList;
     FTranslations: TTMSFNCCloudGoogleTranslateTranslations;
@@ -178,14 +178,7 @@ type
     property TranslateModel;
   end;
 
-procedure Register;
-
 implementation
-
-procedure Register;
-begin
-  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleTranslate]);
-end;
 
 constructor TTMSFNCCustomCloudGoogleTranslate.Create(AOwner: TComponent);
 begin

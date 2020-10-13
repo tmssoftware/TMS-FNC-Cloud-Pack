@@ -28,7 +28,7 @@ unit VCL.TMSFNCCloudGoogleTextToSpeech;
 interface
 
 uses
-  Classes, SysUtils, VCL.TMSFNCCloudBase, VCL.TMSFNCTypes, VCL.TMSFNCUtils
+  Classes, SysUtils, VCL.TMSFNCCloudOAuth, VCL.TMSFNCCloudBase, VCL.TMSFNCTypes, VCL.TMSFNCUtils
   {$IFDEF WEBLIB}
   ,WEBLib.JSON, JS, Contnrs
   {$ENDIF}
@@ -100,7 +100,7 @@ type
     property Items[Index: Integer]: TTMSFNCCloudGoogleTextToSpeechVoice read GetItems write SetItems; default;
   end;
 
-  TTMSFNCCustomCloudGoogleTextToSpeech = class(TTMSFNCSimpleCloudBase)
+  TTMSFNCCustomCloudGoogleTextToSpeech = class(TTMSFNCSimpleCloudOAuth)
   private
     FVoices: TTMSFNCCloudGoogleTextToSpeechVoices;
     FOnTextToSpeech: TTMSFNCCloudGoogleTextToSpeechEvent;
@@ -137,14 +137,7 @@ type
     property OnTextToSpeech;
   end;
 
-procedure Register;
-
 implementation
-
-procedure Register;
-begin
-  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleTextToSpeech]);
-end;
 
 constructor TTMSFNCCustomCloudGoogleTextToSpeech.Create(AOwner: TComponent);
 begin

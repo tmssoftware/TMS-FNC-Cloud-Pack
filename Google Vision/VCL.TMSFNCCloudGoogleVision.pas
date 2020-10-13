@@ -28,7 +28,7 @@ unit VCL.TMSFNCCloudGoogleVision;
 interface
 
 uses
-  Classes, SysUtils, Types, VCL.TMSFNCCloudBase, VCL.TMSFNCTypes, VCL.TMSFNCUtils
+  Classes, SysUtils, Types, VCL.TMSFNCCloudOAuth, VCL.TMSFNCCloudBase, VCL.TMSFNCTypes, VCL.TMSFNCUtils
   {$IFDEF WEBLIB}
   ,WEBLib.JSON, JS, Contnrs
   {$ENDIF}
@@ -428,7 +428,7 @@ type
     property Items[Index: Integer]: TTMSFNCCloudGoogleVisionResponse read GetItems write SetItems; default;
   end;
 
-  TTMSFNCCustomCloudGoogleVision = class(TTMSFNCSimpleCloudBase)
+  TTMSFNCCustomCloudGoogleVision = class(TTMSFNCSimpleCloudOAuth)
   private
     FResponses: TTMSFNCCloudGoogleVisionResponses;
     FDetectTypes: TTMSFNCCloudGoogleVisionDetectTypes;
@@ -468,16 +468,8 @@ type
   end;
 
 function GetJSONPoint(const jo: TJSONValue; const I: Integer): TPointF;
-procedure Register;
 
 implementation
-
-procedure Register;
-begin
-  {$IFNDEF WEBLIB}
-  RegisterComponents('TMS FNC Cloud', [TTMSFNCCloudGoogleVision]);
-  {$ENDIF}
-end;
 
 function TTMSFNCCustomCloudGoogleVision.AddFeatures(const AType: string; const AMax: Integer): string;
 var
